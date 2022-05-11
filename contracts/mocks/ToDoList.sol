@@ -28,11 +28,11 @@ contract TodoList {
     /// @param completed Is the task completed
     event ChangeStatus(address indexed userAddress, uint indexed code, bool completed); // Фиксируем кто изменил, какую задачу и на какой статус
 
-    ///@notice Create a new task
+    /// @notice Create a new task
     /// @param _code Task code
-    /// @param _decription Task decription
+    /// @param _description Task decription
     /// @param _deadline Task deadline
-    function addTask(uint _code, string memory _decription, uint _deadline) external { // Создание новой задачи
+    function addTask(uint _code, string memory _description, uint _deadline) external { // Создание новой задачи
 
         for(uint i = 0; i <= todoList[msg.sender].length; i++) { // Проходимся по всему массиву у msg.sender
             require(todoList[msg.sender][i].code == _code, "This code is already taken"); // Если в массиве пользователя еже есть такой код, то ошибка
@@ -40,7 +40,7 @@ contract TodoList {
 
         Task memory newTask = Task({
             code: _code,
-            description: _decription,
+            description: _description,
             deadline: block.timestamp + _deadline, // Время сейчас + время на задачу
             completed: false,
             overdue: false,
